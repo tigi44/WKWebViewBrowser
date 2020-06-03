@@ -50,6 +50,7 @@
 		0EBAFAB724873CED00FF14DD /* WKWebViewBrowserExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WKWebViewBrowserExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EBAFABB24873CED00FF14DD /* WKWebViewBrowserExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWebViewBrowserExampleUITests.swift; sourceTree = "<group>"; };
 		0EBAFABD24873CED00FF14DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0EBAFACC24873E2600FF14DD /* WKWebViewBrowser */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WKWebViewBrowser; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +82,12 @@
 		0EBAFA8D24873CEA00FF14DD = {
 			isa = PBXGroup;
 			children = (
+				0EBAFACC24873E2600FF14DD /* WKWebViewBrowser */,
 				0EBAFA9824873CEB00FF14DD /* WKWebViewBrowserExample */,
 				0EBAFAAF24873CED00FF14DD /* WKWebViewBrowserExampleTests */,
 				0EBAFABA24873CED00FF14DD /* WKWebViewBrowserExampleUITests */,
 				0EBAFA9724873CEB00FF14DD /* Products */,
+				0EBAFACD24873E3200FF14DD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +131,13 @@
 				0EBAFABD24873CED00FF14DD /* Info.plist */,
 			);
 			path = WKWebViewBrowserExampleUITests;
+			sourceTree = "<group>";
+		};
+		0EBAFACD24873E3200FF14DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
