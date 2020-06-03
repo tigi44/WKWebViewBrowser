@@ -5,7 +5,6 @@
 //  Created by tigi on 2020/05/28.
 //
 
-import UIKit
 import WebKit
 
 internal struct WKProcessPoolHandler {
