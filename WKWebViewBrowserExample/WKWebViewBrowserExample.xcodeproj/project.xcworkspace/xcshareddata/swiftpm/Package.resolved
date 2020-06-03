@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "WKWebViewBrowser",
+        "repositoryURL": "https://github.com/tigi44/WKWebViewBrowser.git",
+        "state": {
+          "branch": null,
+          "revision": "b066a48447f1b142120364170c0f3a505af5eaee",
+          "version": "0.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
