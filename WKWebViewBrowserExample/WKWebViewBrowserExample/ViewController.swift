@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WKWebViewBrowser
 
 class ViewController: UIViewController {
 

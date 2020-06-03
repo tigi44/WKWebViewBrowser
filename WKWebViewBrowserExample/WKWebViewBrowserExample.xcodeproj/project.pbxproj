@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		0EBAFAA624873CED00FF14DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EBAFAA424873CED00FF14DD /* LaunchScreen.storyboard */; };
 		0EBAFAB124873CED00FF14DD /* WKWebViewBrowserExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBAFAB024873CED00FF14DD /* WKWebViewBrowserExampleTests.swift */; };
 		0EBAFABC24873CED00FF14DD /* WKWebViewBrowserExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBAFABB24873CED00FF14DD /* WKWebViewBrowserExampleUITests.swift */; };
+		0EBAFACF24873E3200FF14DD /* WKWebViewBrowser in Frameworks */ = {isa = PBXBuildFile; productRef = 0EBAFACE24873E3200FF14DD /* WKWebViewBrowser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		0EBAFAB724873CED00FF14DD /* WKWebViewBrowserExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WKWebViewBrowserExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EBAFABB24873CED00FF14DD /* WKWebViewBrowserExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWebViewBrowserExampleUITests.swift; sourceTree = "<group>"; };
 		0EBAFABD24873CED00FF14DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0EBAFACC24873E2600FF14DD /* WKWebViewBrowser */ = {isa = PBXFileReference; lastKnownFileType = folder; name = WKWebViewBrowser; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EBAFACF24873E3200FF14DD /* WKWebViewBrowser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,10 +82,12 @@
 		0EBAFA8D24873CEA00FF14DD = {
 			isa = PBXGroup;
 			children = (
+				0EBAFACC24873E2600FF14DD /* WKWebViewBrowser */,
 				0EBAFA9824873CEB00FF14DD /* WKWebViewBrowserExample */,
 				0EBAFAAF24873CED00FF14DD /* WKWebViewBrowserExampleTests */,
 				0EBAFABA24873CED00FF14DD /* WKWebViewBrowserExampleUITests */,
 				0EBAFA9724873CEB00FF14DD /* Products */,
+				0EBAFACD24873E3200FF14DD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +133,13 @@
 			path = WKWebViewBrowserExampleUITests;
 			sourceTree = "<group>";
 		};
+		0EBAFACD24873E3200FF14DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,6 +156,9 @@
 			dependencies = (
 			);
 			name = WKWebViewBrowserExample;
+			packageProductDependencies = (
+				0EBAFACE24873E3200FF14DD /* WKWebViewBrowser */,
+			);
 			productName = WKWebViewBrowserExample;
 			productReference = 0EBAFA9624873CEB00FF14DD /* WKWebViewBrowserExample.app */;
 			productType = "com.apple.product-type.application";
@@ -584,6 +599,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0EBAFACE24873E3200FF14DD /* WKWebViewBrowser */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WKWebViewBrowser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0EBAFA8E24873CEA00FF14DD /* Project object */;
 }
