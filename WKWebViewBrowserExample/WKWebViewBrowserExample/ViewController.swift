@@ -8,10 +8,11 @@
 
 import UIKit
 import WKWebViewBrowser
+import WebKit
 
 class ViewController: UIViewController {
-
-    let webViewController: UIViewController = WKWebViewBrowser(with: URL(string: "https://www.apple.com")!)
+    
+    let webViewController: WKWebViewBrowser = WKWebViewBrowser(with: URL(string: "https://www.apple.com")!)
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -1,10 +1,10 @@
 import XCTest
 @testable import WKWebViewBrowser
-@testable import WebKit
+import WebKit
 
 final class WKWebViewBrowserTests: XCTestCase {
     
-    class WKWebViewBrowserTestDidFinish: WKWebViewBrowser {
+    class MockWKWebViewBrowserForTestingDidFinish: WKWebViewBrowser {
         
         var didFinish: ((WKWebView) -> Void)?
         override func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -14,12 +14,14 @@ final class WKWebViewBrowserTests: XCTestCase {
         }
     }
     
-    func testURLOnWkWebViewBrowser() {
+    func testDidFinish() {
         let expectation = XCTestExpectation(description: "Receive a response")
         expectation.expectedFulfillmentCount = 1
         expectation.assertForOverFulfill = true
+        
         let webpageURL = "https://www.apple.com"
-        let wkWebViewBrowser: WKWebViewBrowserTestDidFinish = WKWebViewBrowserTestDidFinish(with: URL(string: webpageURL)!)
+        let wkWebViewBrowser: MockWKWebViewBrowserForTestingDidFinish = MockWKWebViewBrowserForTestingDidFinish(with: URL(string: webpageURL)!)
+        wkWebViewBrowser.viewDidLoad()
         wkWebViewBrowser.didFinish = { webView in
             expectation.fulfill()
  
@@ -27,10 +29,10 @@ final class WKWebViewBrowserTests: XCTestCase {
             XCTAssertNotNil(wkWebViewBrowser.webView.url?.absoluteString.contains(webpageURL))
         }
         
-        wait(for: [expectation], timeout: 10)
+        wait(for: [expectation], timeout: 15)
     }
 
     static var allTests = [
-        ("testURLOnWkWebViewBrowser", testURLOnWkWebViewBrowser),
+        ("testDidFinish", testDidFinish),
     ]
 }

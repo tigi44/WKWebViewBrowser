@@ -7,55 +7,94 @@
 
 import WebKit
 
+
+// MARK: - WKProcessPoolHandler
+
+
 internal struct WKProcessPoolHandler {
     static let shared = WKProcessPoolHandler()
     let pool: WKProcessPool = WKProcessPool()
     private init() {}
 }
 
-internal protocol BasedWKWebView {
+
+// MARK: - BasedWKWebView
+
+
+public protocol BasedWKWebView {
     var webView: WKWebView { get }
-    func loadWKWebView(with url: URL)
-    init(with url: URL)
+    var request: URLRequest { get }
+    var configuration: WKWebViewConfiguration { get }
+    
+    init(with url: URL, configuration: WKWebViewConfiguration?)
+    init(with request: URLRequest, configuration: WKWebViewConfiguration?)
+    
+    func loadRequest(with request: URLRequest)
 }
 
 extension BasedWKWebView {
-    func loadWKWebView(with url: URL) {
-        let request: URLRequest = URLRequest(url: url)
+    public func loadRequest(with request: URLRequest) {
         webView.load(request)
     }
 }
 
+
+// MARK: - BasedWKWebViewController
+
+
 open class BasedWKWebViewController: UIViewController, BasedWKWebView {
-
-    lazy var webView: WKWebView = {
-        let webConfiguration = WKWebViewConfiguration()
-        webConfiguration.processPool = WKProcessPoolHandler.shared.pool
-
-        let webView = WKWebView(frame: .zero, configuration: webConfiguration)
+    public private(set) lazy var webView: WKWebView = {
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+        webView.backgroundColor = .white
+        webView.allowsBackForwardNavigationGestures = true
         webView.uiDelegate = self
         webView.navigationDelegate = self
         webView.translatesAutoresizingMaskIntoConstraints = false
 
         return webView
     }()
+    public private(set) var request: URLRequest
+    public private(set) lazy var configuration: WKWebViewConfiguration = {
+        if let config = self._configuration {
+            return config
+        } else {
+            let config = WKWebViewConfiguration()
+            config.processPool = WKProcessPoolHandler.shared.pool
+            return config
+        }
+    }()
+
+    private var _configuration: WKWebViewConfiguration?
     
-    public required init(with url: URL) {
-        super.init(nibName: nil, bundle: nil)
+    
+    public required init(with url: URL, configuration: WKWebViewConfiguration? = nil) {
+        self.request = URLRequest(url: url)
+        self._configuration = configuration
         
-        setupUI()
-        loadWKWebView(with: url)
+        super.init(nibName: nil, bundle: nil)
     }
     
-    required public init?(coder: NSCoder) {
+    public required init(with request: URLRequest, configuration: WKWebViewConfiguration? = nil) {
+        self.request = request
+        self._configuration = configuration
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupUI()
+        loadRequest(with: request)
     }
 }
 
-extension BasedWKWebViewController {
-    
-    private func setupUI() {
-
+private extension BasedWKWebViewController {
+    func setupUI() {
         view.addSubview(webView)
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -102,24 +141,38 @@ extension BasedWKWebViewController: WKUIDelegate {
 extension BasedWKWebViewController: WKNavigationDelegate {
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url: URL = navigationAction.request.url {
-            print("BasedWKWebViewController URL : \(url)")
+            PrintDebugLog("BasedWKWebViewController URL : \(url)")
         }
         
         decisionHandler(.allow)
     }
     
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        
     }
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        
+        PrintDebugLog("didFailProvisionalNavigation error : \(error.localizedDescription)")
     }
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
+        setupTitleByWebViewDocument()
     }
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        
+        PrintDebugLog("didFail error : \(error.localizedDescription)")
+    }
+    
+    
+    // MARK: private
+    
+
+    private func setupTitleByWebViewDocument() {
+        webView.evaluateJavaScript("document.title") { [weak self] (result, error) in
+            if let error = error {
+                PrintDebugLog("didFinish evaluateJavaScript(document.title) error : \(error.localizedDescription)")
+            }
+            
+            if let result = result as? String {
+                PrintDebugLog("didFinish setTitle : \(result)")
+                self?.title = result
+            }
+        }
     }
 }
-
- 
